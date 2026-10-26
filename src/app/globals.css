@@ -1,0 +1,441 @@
+@import "tailwindcss";
+
+/*
+ * Génie des Lycées ORATHON — charte web
+ * Couleurs : le dégradé bleu du logo (#035cfc → #10338b), un bleu ciel en accent (#8fd0ff) et le blanc.
+ * L'orange reste dans le logo lui-même, pas dans l'interface.
+ * Typographie : Manrope, une grotesque nette et contemporaine, pour les titres comme pour le texte.
+ * Esprit : épuré, lumineux, verre dépoli sur le bleu, grandes photos arrondies, boutons pilule.
+ *
+ * Les noms historiques des jetons sont conservés pour tout le site :
+ *   salle → bleu profond, ivoire → blanc, or → bleu ciel (accent), tribune → bleu GDL.
+ */
+@theme {
+  --color-salle: #0a2470;
+  --color-salle-2: #10338b;
+  --color-salle-3: #2c52c4;
+  --color-ivoire: #ffffff;
+  --color-ivoire-2: #f1f5ff;
+  --color-ivoire-3: #dde6fb;
+  --color-or: #8fd0ff;
+  --color-or-clair: #b8e2ff;
+  --color-or-texte: #0b4be0;
+  --color-rose: #5cb6ff;
+  --color-tribune: #035cfc;
+  --color-tribune-fonce: #0b4be0;
+  --color-tribune-clair: #6e9bff;
+  --color-encre: #0e1a3d;
+  --color-gris: #5a6480;
+  --color-fumee: #dbe5ff;
+  --color-direct: #ff3b41;
+
+  --font-display: "Manrope Variable", "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Manrope Variable", "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.4rem;
+
+  --radius-carte: 1.5rem;
+  --radius-photo: 1.75rem;
+  --ease-doux: cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    background: #ffffff;
+    color: var(--color-encre);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.65;
+  }
+  ::selection {
+    background: var(--color-tribune);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-tribune);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .scene :focus-visible,
+  .verre :focus-visible {
+    outline-color: var(--color-or);
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Titres */
+  .t-voix {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+  }
+  .t-titre {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+  .t-sous-titre {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+  .t-citation {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+  }
+  .t-chiffre {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .t-marque {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+  /* Dégradé de texte : sur fond bleu (ciel → blanc) et sur fond clair (bleu GDL → ciel) */
+  .texte-degrade {
+    background: linear-gradient(100deg, #8fd0ff 0%, #ffffff 85%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .texte-degrade-fonce {
+    background: linear-gradient(100deg, #035cfc 10%, #3aa8ff 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Verre dépoli, posé sur le bleu ou sur une photo */
+  .verre {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    color: #fff;
+  }
+
+  /* Surfaces */
+  .papier {
+    background: #ffffff;
+    color: var(--color-encre);
+  }
+  .papier-bleute {
+    background: var(--color-ivoire-2);
+    color: var(--color-encre);
+  }
+  .scene,
+  .projecteur {
+    color: #fff;
+    background:
+      radial-gradient(60rem 30rem at 90% -10%, rgba(110, 155, 255, 0.35), transparent 60%),
+      radial-gradient(40rem 26rem at -10% 110%, rgba(143, 208, 255, 0.22), transparent 60%),
+      linear-gradient(135deg, var(--color-tribune-fonce) 0%, var(--color-salle-2) 70%, var(--color-salle) 100%);
+  }
+  /* Bandeau clair d'appel à l'action (nom historique conservé) */
+  .degrade-orange {
+    background: linear-gradient(115deg, #e9f5ff 0%, #cfe8ff 50%, #b3d8ff 100%);
+  }
+
+  .conteneur {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 768px) {
+    .conteneur {
+      padding-inline: 2rem;
+    }
+  }
+
+  .carte {
+    background: #fff;
+    border-radius: var(--radius-carte);
+    box-shadow:
+      0 1px 2px rgba(16, 51, 139, 0.06),
+      0 18px 40px -22px rgba(16, 51, 139, 0.35);
+  }
+  .photo {
+    border-radius: var(--radius-photo);
+    overflow: hidden;
+  }
+
+  .pastille {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    font-size: var(--text-xs);
+    font-weight: 600;
+  }
+
+  /* Boutons pilule, cibles tactiles ≥ 48 px */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-height: 3rem;
+    padding: 0.7rem 1.4rem;
+    font-weight: 600;
+    font-size: var(--text-sm);
+    letter-spacing: -0.01em;
+    border-radius: 999px;
+    transition:
+      background-color 160ms,
+      color 160ms,
+      border-color 160ms,
+      box-shadow 160ms,
+      transform 160ms var(--ease-doux);
+    white-space: nowrap;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-or {
+    background: var(--color-or);
+    color: var(--color-encre);
+    box-shadow: 0 10px 24px -12px rgba(92, 182, 255, 0.9);
+  }
+  .btn-or:hover {
+    background: var(--color-or-clair);
+  }
+  .btn-tribune {
+    background: var(--color-tribune);
+    color: #fff;
+    box-shadow: 0 10px 24px -12px rgba(3, 92, 252, 0.8);
+  }
+  .btn-tribune:hover {
+    background: var(--color-tribune-fonce);
+  }
+  .btn-blanc {
+    background: #fff;
+    color: var(--color-salle-2);
+  }
+  .btn-blanc:hover {
+    background: var(--color-ivoire-2);
+  }
+  .btn-contour {
+    border: 1.5px solid color-mix(in oklab, currentColor 35%, transparent);
+  }
+  .btn-contour:hover {
+    border-color: currentColor;
+  }
+  /* Rond fléché en fin de bouton */
+  .btn-fleche::after {
+    content: "";
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-right: -0.7rem;
+    border-radius: 999px;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")
+        center / 1rem no-repeat,
+      var(--color-encre);
+    flex-shrink: 0;
+  }
+  .btn-tribune.btn-fleche::after {
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23035cfc' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
+  }
+  .btn[disabled],
+  .btn[aria-disabled="true"] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .lien {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.22em;
+  }
+  .lien:hover {
+    text-decoration-thickness: 2.5px;
+  }
+
+  /* Formulaires */
+  .champ {
+    display: block;
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.7rem 1rem;
+    border-radius: 0.9rem;
+    border: 1.5px solid var(--color-ivoire-3);
+    background: #fff;
+    color: var(--color-encre);
+    font-size: 1rem;
+  }
+  .champ:focus {
+    outline: none;
+    border-color: var(--color-tribune);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-tribune) 18%, transparent);
+  }
+  .champ[aria-invalid="true"] {
+    border-color: #c0261b;
+  }
+  .scene .champ {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #fff;
+  }
+  .etiquette {
+    display: block;
+    font-weight: 600;
+    font-size: var(--text-sm);
+    margin-bottom: 0.35rem;
+  }
+  .aide {
+    font-size: var(--text-xs);
+    color: var(--color-gris);
+    margin-top: 0.3rem;
+  }
+  .scene .aide {
+    color: var(--color-fumee);
+  }
+  .erreur {
+    font-size: var(--text-xs);
+    color: #c0261b;
+    margin-top: 0.3rem;
+    font-weight: 600;
+  }
+  .scene .erreur {
+    color: #ffc2bc;
+  }
+
+  .prose-gdl {
+    max-width: 68ch;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+  .prose-gdl > * + * {
+    margin-top: 1em;
+  }
+  .prose-gdl h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    font-size: 1.7rem;
+    line-height: 1.15;
+    margin-top: 1.8em;
+  }
+  .prose-gdl h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 1.4em;
+  }
+  .prose-gdl ul {
+    list-style: disc;
+    padding-left: 1.3em;
+  }
+  .prose-gdl ol {
+    list-style: decimal;
+    padding-left: 1.3em;
+  }
+  .prose-gdl li::marker {
+    color: var(--color-tribune);
+  }
+  .prose-gdl li + li {
+    margin-top: 0.35em;
+  }
+  .prose-gdl a {
+    color: var(--color-tribune);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .prose-gdl strong {
+    font-weight: 700;
+  }
+  .prose-gdl blockquote {
+    border-left: 4px solid var(--color-tribune);
+    padding-left: 1rem;
+    font-style: italic;
+  }
+
+  .rail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(15rem, 72%);
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.5rem;
+  }
+  .rail > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* Une seule animation d'entrée : le titre d'accueil et sa photo. */
+@keyframes monte {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.entree {
+  animation: monte 800ms var(--ease-doux) both;
+}
+.entree-2 {
+  animation: monte 800ms var(--ease-doux) 120ms both;
+}
+.entree-3 {
+  animation: monte 900ms var(--ease-doux) 240ms both;
+}
+@keyframes pulse-direct {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.point-direct {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--color-direct);
+  animation: pulse-direct 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
