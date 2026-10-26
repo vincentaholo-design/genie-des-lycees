@@ -15,7 +15,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         </div>
       )}
       <Header voteOpen={voteOpen} />
-      <main id="contenu" className="-mt-[4.75rem] lg:-mt-[5.25rem]">{children}</main>
+      <main id="contenu" className="-mt-[4.75rem] sm:-mt-[5rem] lg:-mt-[5.5rem]">{children}</main>
       <Footer about={about} contact={contact} />
     </>
   );

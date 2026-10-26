@@ -7,7 +7,7 @@ import { fullNav } from "@/config/nav";
 import { socials } from "@/config/media";
 
 /** Plan du site plein écran, présenté comme le programme de la soirée. */
-export function MenuSheet({ voteOpen }: { voteOpen: boolean }) {
+export function MenuSheet({ voteOpen, tone = "dark" }: { voteOpen: boolean; tone?: "dark" | "light" }) {
   const [open, setOpen] = useState(false);
   const path = usePathname();
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -29,7 +29,7 @@ export function MenuSheet({ voteOpen }: { voteOpen: boolean }) {
 
   return (
     <>
-      <button ref={openRef} type="button" onClick={() => setOpen(true)} aria-expanded={open} aria-controls="plan-du-site" className="btn !min-h-11 bg-ivoire-2 !px-4 !py-2 text-encre hover:bg-ivoire-3">
+      <button ref={openRef} type="button" onClick={() => setOpen(true)} aria-expanded={open} aria-controls="plan-du-site" className={tone === "light" ? "btn !min-h-11 bg-ivoire-2 !px-4 !py-2 text-encre hover:bg-ivoire-3" : "btn !min-h-11 bg-white/15 !px-4 !py-2 text-white ring-1 ring-white/25 hover:bg-white/25"}>
         <svg viewBox="0 0 20 20" className="size-4" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.8">
           <path d="M3 6h14M3 10h14M3 14h9" />
         </svg>
